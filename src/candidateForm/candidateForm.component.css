@@ -41,3 +41,8 @@ mat-card{
 .center{
   text-align: center;
 }
+
+.head{
+  color: darkblue;
+  font-size: medium;
+}

@@ -11,4 +11,13 @@ export class FetchDataService {
   fetchCountries(){
     return this.http.get("https://recruit.cormsquare.com/api/test/countries");
   }
+
+  fetchStates(countryId){
+    return this.http.get("https://recruit.cormsquare.com/api/test/states/"+countryId);
+  }
+
+  fetchCities(stateId){
+    return this.http.get("https://recruit.cormsquare.com/api/test/cities/"+stateId);
+  }
 }
+

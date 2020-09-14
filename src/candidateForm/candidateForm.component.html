@@ -1,13 +1,24 @@
 <mat-card>
   <form [formGroup]="candidateForm" (ngSubmit)="sendDetails()">
-    <mat-form-field >
+    <div class="center head">Candidate Information</div>
+    <br/><br/>
+    <mat-form-field>
       <label>Name</label>
-      <input matInput value=""
-          formControlName="candidateName">
+      <input matInput value="" formControlName="candidateName"
+          pattern="[a-zA-Z\s]{2,}">
+      <mat-error *ngIf="candidateForm.controls.candidateName.errors &&
+        candidateForm.controls.candidateName.touched">
+        Please enter a valid name
+      </mat-error>
     </mat-form-field>
     <mat-form-field class="rightElement">
       <label>Email</label>
       <input matInput type="email" formControlName="candidateEmail">
+      <mat-error *ngIf="candidateForm.controls.candidateEmail.errors &&
+        candidateForm.controls.candidateEmail.errors.emailError!=null &&
+        candidateForm.controls.candidateEmail.dirty">
+        {{candidateForm.controls.candidateEmail.errors.emailError.message}}
+      </mat-error>
     </mat-form-field>
     <br/>
     <mat-form-field>
@@ -18,45 +29,48 @@
     <br/>
     <mat-form-field>
       <label>Country</label>
-      <mat-select>
-        <mat-option *ngFor="let country of countries" value="country.id">
+      <mat-select name="country" formControlName="candidateCountry"
+      (selectionChange)="countryChanged()">
+        <mat-option *ngFor="let country of countries" [value]="country.id">
           {{country.name}}
         </mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field class="rightElement">
       <label>State</label>
-      <mat-select>
-        <mat-option *ngFor="let country of countries" value="country.id">
-          {{country.name}}
+      <mat-select formControlName="candidateState" id="stateSelect"
+        [disabled]="stateDisable" (selectionChange)="stateChanged()">
+        <mat-option *ngFor="let state of states" [value]="state.id">
+          {{state.name}}
         </mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field class="rightElement">
       <label>City</label>
-      <mat-select>
-        <mat-option *ngFor="let country of countries" value="country.id">
-          {{country.name}}
+      <mat-select formControlName="candidateCity" id="citySelect"
+        [disabled]="cityDisable">
+        <mat-option *ngFor="let city of cities" [value]="city.id">
+          {{city.name}}
         </mat-option>
       </mat-select>
     </mat-form-field>
     <br/><br/>
     <section>
       <label>Preferred Locations</label><br/>
-      <mat-checkbox class="check-margin">Bangalore</mat-checkbox>
-      <mat-checkbox class="check-margin" >Chennai</mat-checkbox>
-      <mat-checkbox class="check-margin" >Mumbai</mat-checkbox>
-      <mat-checkbox class="check-margin" >Delhi</mat-checkbox>
+      <mat-checkbox class="check-margin" formControlName="locBangalore">Bangalore</mat-checkbox>
+      <mat-checkbox class="check-margin" formControlName="locChennai">Chennai</mat-checkbox>
+      <mat-checkbox class="check-margin" formControlName="locMumbai">Mumbai</mat-checkbox>
+      <mat-checkbox class="check-margin" formControlName="locDelhi">Delhi</mat-checkbox>
     </section>
     <br/>
     <mat-radio-group>
       <label class="expLabel">Are you experienced?</label>
-      <mat-radio-button value="1">Yes</mat-radio-button>
-      <mat-radio-button value="2">No</mat-radio-button>
+      <mat-radio-button formControlName="candidateExp" value="Yes">Yes</mat-radio-button>
+      <mat-radio-button formControlName="candidateExp" value="No">No</mat-radio-button>
     </mat-radio-group>
     <mat-form-field class="rightElement inline">
       <label>Years of experience</label>
-      <input matInput formControlName="candidateExp">
+      <input matInput formControlName="candidateExpYears">
     </mat-form-field>
     <mat-card>
       <mat-card-title>
@@ -96,4 +110,3 @@
     </div>
   </form>
 </mat-card>
-
