@@ -1,0 +1,43 @@
+.rightElement{
+  padding-left: 35px;
+}
+
+.address{
+  width:4 rem;
+}
+
+mat-card{
+  display: block;
+  align-content: center;
+}
+
+.check-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.check-margin {
+  margin: 0 10px;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+
+.expLabel{
+  margin-right: 16px;
+}
+
+.inline{
+  display: flex;
+}
+
+.rightSmallElement{
+  padding-left: 20px;
+}
+
+.center{
+  text-align: center;
+}

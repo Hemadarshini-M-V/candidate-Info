@@ -1,0 +1,99 @@
+<mat-card>
+  <form [formGroup]="candidateForm" (ngSubmit)="sendDetails()">
+    <mat-form-field >
+      <label>Name</label>
+      <input matInput value=""
+          formControlName="candidateName">
+    </mat-form-field>
+    <mat-form-field class="rightElement">
+      <label>Email</label>
+      <input matInput type="email" formControlName="candidateEmail">
+    </mat-form-field>
+    <br/>
+    <mat-form-field>
+      <label>Address</label>
+      <textarea class="address" matInput formControlName="candidateAddress">
+      </textarea>
+    </mat-form-field>
+    <br/>
+    <mat-form-field>
+      <label>Country</label>
+      <mat-select>
+        <mat-option *ngFor="let country of countries" value="country.id">
+          {{country.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="rightElement">
+      <label>State</label>
+      <mat-select>
+        <mat-option *ngFor="let country of countries" value="country.id">
+          {{country.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="rightElement">
+      <label>City</label>
+      <mat-select>
+        <mat-option *ngFor="let country of countries" value="country.id">
+          {{country.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br/><br/>
+    <section>
+      <label>Preferred Locations</label><br/>
+      <mat-checkbox class="check-margin">Bangalore</mat-checkbox>
+      <mat-checkbox class="check-margin" >Chennai</mat-checkbox>
+      <mat-checkbox class="check-margin" >Mumbai</mat-checkbox>
+      <mat-checkbox class="check-margin" >Delhi</mat-checkbox>
+    </section>
+    <br/>
+    <mat-radio-group>
+      <label class="expLabel">Are you experienced?</label>
+      <mat-radio-button value="1">Yes</mat-radio-button>
+      <mat-radio-button value="2">No</mat-radio-button>
+    </mat-radio-group>
+    <mat-form-field class="rightElement inline">
+      <label>Years of experience</label>
+      <input matInput formControlName="candidateExp">
+    </mat-form-field>
+    <mat-card>
+      <mat-card-title>
+        Skills
+      </mat-card-title>
+      <div *ngFor="let skill of skillsCounter">
+        <mat-form-field>
+          <label>Skill Name</label>
+          <input matInput value=""
+              formControlName="">
+        </mat-form-field>
+        <mat-form-field class="rightSmallElement">
+          <label>Description</label>
+          <textarea rows="1" matInput >
+          </textarea>
+        </mat-form-field>
+        <mat-form-field class="rightSmallElement">
+          <label>Skill Level</label>
+          <mat-select>
+            <mat-option value="Beginner">Beginner</mat-option>
+            <mat-option value="Intermediate">Intermediate</mat-option>
+            <mat-option value="Advanced">Advanced</mat-option>
+            <mat-option value="Expert">Expert </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <br/>
+      <div class="center">
+        <button color="primary" mat-raised-button (click)="addSkill()">
+          Add Skill
+        </button>
+      </div>
+    </mat-card>
+    <br/>
+    <div class="center">
+      <button mat-raised-button color="primary">Submit</button>
+    </div>
+  </form>
+</mat-card>
+
