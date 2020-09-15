@@ -1,5 +1,5 @@
 <mat-card>
-  <form [formGroup]="candidateForm" (ngSubmit)="sendDetails()">
+  <form [formGroup]="candidateForm" (change)="checkValidity()" (ngSubmit)="sendDetails()">
     <div class="center head">Candidate Information</div>
     <br/><br/>
     <mat-form-field>
@@ -63,50 +63,63 @@
       <mat-checkbox class="check-margin" formControlName="locDelhi">Delhi</mat-checkbox>
     </section>
     <br/>
-    <mat-radio-group>
+    <mat-radio-group formControlName="candidateExp" (change)="expChanged()">
       <label class="expLabel">Are you experienced?</label>
-      <mat-radio-button formControlName="candidateExp" value="Yes">Yes</mat-radio-button>
-      <mat-radio-button formControlName="candidateExp" value="No">No</mat-radio-button>
+      <mat-radio-button  value="Yes">Yes</mat-radio-button>
+      <mat-radio-button value="No" [checked]="true">No</mat-radio-button>
     </mat-radio-group>
     <mat-form-field class="rightElement inline">
       <label>Years of experience</label>
-      <input matInput formControlName="candidateExpYears">
+      <input matInput formControlName="candidateExpYears" pattern="[0-9]{1,2}">
+      <mat-error *ngIf="candidateForm.controls.candidateExpYears.errors &&
+        candidateForm.controls.candidateExpYears.touched">
+        Please enter a valid number
+      </mat-error>
     </mat-form-field>
     <mat-card>
-      <mat-card-title>
+      <mat-card-title class="card-title">
         Skills
       </mat-card-title>
-      <div *ngFor="let skill of skillsCounter">
-        <mat-form-field>
-          <label>Skill Name</label>
-          <input matInput value=""
-              formControlName="">
-        </mat-form-field>
-        <mat-form-field class="rightSmallElement">
-          <label>Description</label>
-          <textarea rows="1" matInput >
-          </textarea>
-        </mat-form-field>
-        <mat-form-field class="rightSmallElement">
-          <label>Skill Level</label>
-          <mat-select>
-            <mat-option value="Beginner">Beginner</mat-option>
-            <mat-option value="Intermediate">Intermediate</mat-option>
-            <mat-option value="Advanced">Advanced</mat-option>
-            <mat-option value="Expert">Expert </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+      <table formArrayName="skills">
+        <tr *ngFor="let skill of skills().controls; let i=index" [formGroupName]="i">
+          <td>
+            <mat-form-field>
+              <label>Skill Name</label>
+              <input matInput value=""
+                  formControlName="skillName">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="rightSmallElement">
+              <label>Description</label>
+              <textarea rows="1" matInput formControlName="skillDescription">
+              </textarea>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="rightSmallElement">
+              <label>Skill Level</label>
+              <mat-select formControlName="skillLevel">
+                <mat-option value="Beginner">Beginner</mat-option>
+                <mat-option value="Intermediate">Intermediate</mat-option>
+                <mat-option value="Advanced">Advanced</mat-option>
+                <mat-option value="Expert">Expert </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
       <br/>
       <div class="center">
-        <button color="primary" mat-raised-button (click)="addSkill()">
+        <button type="button" color="primary" mat-raised-button (click)="addSkill()">
           Add Skill
         </button>
       </div>
     </mat-card>
     <br/>
     <div class="center">
-      <button mat-raised-button color="primary">Submit</button>
+      <button type="submit" mat-raised-button
+        color="primary" [disabled]="formInvalid">Submit</button>
     </div>
   </form>
 </mat-card>
